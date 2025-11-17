@@ -10,6 +10,7 @@ A Node.js/Express backend server for the GoFasta GPS tracking application using 
 - **Pagination** support for large datasets
 - **Real-time device position simulation** via background services
 - **RESTful API** with comprehensive endpoints
+- **PHP Integration** for data retrieval and forwarding to external URLs
 - **Web dashboard** interface for monitoring
 - **Input validation** and security middleware
 - **Comprehensive logging** and error handling
@@ -37,6 +38,14 @@ gofasta-server/
 │   └── deviceService.js    # Background services
 ├── utils/
 │   └── haversine.js        # Distance calculation utility
+├── php-integration/          # PHP integration for data retrieval and forwarding
+│   ├── gofasta-data-sender.php    # Main PHP class for data operations
+│   ├── config.php                 # PHP configuration file
+│   ├── example-basic.php          # Basic usage examples
+│   ├── scheduled-sync.php         # Automated sync script
+│   ├── curl-to-php-example.php    # cURL to PHP conversion example
+│   ├── webhook-receiver.php       # Sample webhook receiver
+│   └── README.md                  # PHP integration documentation
 ├── logs/                   # Application logs (auto-created)
 ├── .env                    # Environment variables
 ├── server.js               # Main application entry point
@@ -98,6 +107,14 @@ cp .env.example .env
 - **GET** `/health` - Health check
 
 For detailed API documentation with request/response examples, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.md).
+
+### PHP Integration
+- **GET** device data and forward to hosted URLs
+- **Automated synchronization** with cron jobs
+- **Error handling** and retry logic
+- **Configurable** endpoints and authentication
+
+See [php-integration/README.md](./php-integration/README.md) for PHP integration documentation.
 
 ## Scripts
 
