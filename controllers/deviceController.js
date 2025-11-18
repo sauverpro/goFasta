@@ -177,8 +177,8 @@ exports.getDevice = async (req, res, next) => {
 
     let etaSeconds = null;
     if (device.last_lat && device.last_lon && device.last_speed && device.last_speed > 0) {
-      const destLat = device.last_lat + (Math.random() - 0.5) * 0.01;
-      const destLon = device.last_lon + (Math.random() - 0.5) * 0.01;
+      const destLat = -1.9683524;
+      const destLon = 30.0890925;
       const distance = haversineDistance(device.last_lat, device.last_lon, destLat, destLon);
       const speedMs = device.last_speed / 3.6;
       etaSeconds = speedMs > 0 ? Math.round(distance / speedMs) : null;
