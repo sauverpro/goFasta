@@ -208,48 +208,24 @@ exports.getDevice = async (req, res, next) => {
   }
 };
 
-// Randomize coordinates every 1 minute
+// Disabled: Random bus positioning (using only real GPS data from Arduino)
 exports.randomizeBusPositions = async () => {
   try {
-    const devicesToUpdate = await Device.find({
+    const deviceCount = await Device.countDocuments({
       last_lat: { $exists: true, $ne: null },
       last_lon: { $exists: true, $ne: null }
-    }, '_id last_lat last_lon');
-
-    if (devicesToUpdate.length === 0) {
-      logger.info('🔄 No devices with coordinates to update');
-      console.log('🔄 No devices with coordinates to update');
-      return;
-    }
-
-    const bulkOps = devicesToUpdate.map(doc => {
-      const r = doc.toObject();
-      const latOffset = (Math.random() - 0.5) * 0.002;
-      const lonOffset = (Math.random() - 0.5) * 0.002;
-
-      return {
-        updateOne: {
-          filter: { _id: r._id },
-          update: { 
-            $set: { 
-              last_lat: r.last_lat + latOffset, 
-              last_lon: r.last_lon + lonOffset, 
-              last_update: new Date(),
-              last_speed: Math.max(0, (Math.random() * 30) + 5) // Random speed between 5-35 km/h
-            } 
-          }
-        }
-      };
     });
 
-    if (bulkOps.length > 0) {
-      await Device.bulkWrite(bulkOps);
-      logger.info(`🔄 ${bulkOps.length} bus positions updated`);
-      console.log(`🔄 ${bulkOps.length} bus positions updated`);
+    if (deviceCount === 0) {
+      logger.info('🔄 No devices with coordinates found');
+      console.log('🔄 No devices with coordinates found');
+    } else {
+      logger.info(`🔄 ${deviceCount} devices using real GPS coordinates (random positioning disabled)`);
+      console.log(`🔄 ${deviceCount} devices using real GPS coordinates (random positioning disabled)`);
     }
   } catch (err) {
-    logger.error('Error randomizing bus positions:', err);
-    console.error('Error randomizing bus positions:', err);
+    logger.error('Error checking device positions:', err);
+    console.error('Error checking device positions:', err);
   }
 };
 
