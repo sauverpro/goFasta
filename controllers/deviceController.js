@@ -124,10 +124,10 @@ exports.getDevices = async (req, res, next) => {
       // Calculate ETA if we have valid location and speed data
       if (device.last_lat && device.last_lon && device.last_speed && device.last_speed > 0) {
         // Generate a random destination nearby for demo purposes
-        // -1.9683524,30.0890925
+        // 1.9456,30.0705
 
-        const destLat = -1.9683524;
-        const destLon = 30.0890925;
+        const destLat = 1.9456;
+        const destLon = 30.0705;
 
         const distance = haversineDistance(device.last_lat, device.last_lon, destLat, destLon);
         const speedMs = device.last_speed / 3.6; // Convert km/h to m/s
@@ -177,8 +177,8 @@ exports.getDevice = async (req, res, next) => {
 
     let etaSeconds = null;
     if (device.last_lat && device.last_lon && device.last_speed && device.last_speed > 0) {
-      const destLat = -1.9683524;
-      const destLon = 30.0890925;
+      const destLat = 1.9456;
+      const destLon = 30.0705;
       const distance = haversineDistance(device.last_lat, device.last_lon, destLat, destLon);
       const speedMs = device.last_speed / 3.6;
       etaSeconds = speedMs > 0 ? Math.round(distance / speedMs) : null;
