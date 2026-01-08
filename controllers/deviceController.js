@@ -126,7 +126,7 @@ exports.getDevices = async (req, res, next) => {
         // Generate a random destination nearby for demo purposes
         // 1.9456,30.0705
 
-        const destLat = 1.9456;
+        const destLat = -1.9456;
         const destLon = 30.0705;
 
         const distance = haversineDistance(device.last_lat, device.last_lon, destLat, destLon);
