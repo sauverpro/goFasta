@@ -7,307 +7,728 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f3f7f8; /* soft background */
+      --bg:#f3f7f8;
       --panel:#ffffff;
-      --accent:#17a589; /* teal/green */
+      --accent:#17a589;
       --accent-2:#10b981;
       --muted:#9aa6aa;
       --dark:#0f1724;
       --card-shadow: 0 6px 18px rgba(15,23,36,0.06);
     }
     *{box-sizing:border-box}
-    body{font-family: 'Montserrat', sans-serif; margin:0; background:linear-gradient(180deg,#eef4f5 0%,var(--bg) 100%); color:var(--dark)}
-
-    .terminal{
-      max-width:1100px;
-      margin:28px auto;
-      padding:28px;
-      background:linear-gradient(180deg,#ffffff 0%, #f7fbfc 100%);
-      border-radius:8px;
-      box-shadow: 0 8px 30px rgba(13,20,25,0.08);
-      border-top:6px solid #edf2f3;
+    body{
+      font-family: 'Montserrat', sans-serif; 
+      margin:0; 
+      background: var(--bg); 
+      color:var(--dark);
+      min-height: 100vh;
     }
 
-    /* header */
-    .header{display:flex; align-items:center; justify-content:space-between}
-    .brand{display:flex; align-items:center; gap:14px}
-    .logo{
-      width:58px; height:58px; background:var(--accent-2); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 6px 14px rgba(16,185,129,0.12);
+    /* Main container with horizontal layout */
+    .container {
+      display: flex;
+      min-height: 100vh;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 20px;
     }
-    .logo svg{width:26px;height:26px;opacity:0.95}
-    .brand h1{margin:0;font-size:20px; font-weight:800}
-    .brand p{margin:0;color:var(--muted);font-size:13px}
 
-    .clock{
-      background: #ffffff; border-radius:8px; padding:10px 18px; display:flex; align-items:center; gap:10px; box-shadow:var(--card-shadow);
-      border:1px solid #f1f5f6;
+    /* Left sidebar - GoFasta info */
+    .sidebar {
+      width: 280px;
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 30px 20px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
     }
-    .clock .time{font-weight:800; font-size:30px; letter-spacing:1px}
-    .clock .amp{color:var(--muted); font-weight:700}
 
-    /* content */
-    .section{margin-top:26px}
-    .section-header{display:flex; align-items:center; justify-content:space-between}
-    .section-header h2{margin:0;font-size:18px}
-    .badge{background:#e9fbf4;color:var(--accent-2);padding:6px 10px;border-radius:8px;font-weight:700;font-size:13px}
+    .brand {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-    /* cards */
-    .cards{display:flex; gap:18px;margin-top:16px}
-    .card{background:var(--panel); border-radius:12px; padding:18px; flex:1; box-shadow:var(--card-shadow); border:1px solid #f2f6f7}
-    .card .top{display:flex;align-items:center;gap:12px}
-    .mini-logo{width:44px;height:44px;background:var(--accent-2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
-    .title{font-weight:700}
-    .sub{color:var(--muted);font-size:12px}
+    .logo {
+      width: 70px;
+      height: 70px;
+      background: var(--accent-2);
+      border-radius: 12px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    .eta{display:flex;align-items:center;gap:12px;margin-top:12px}
-    .eta-circle{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
-    .eta-small{font-size:12px;color:var(--muted);margin-top:6px}
+    .logo svg {
+      width: 32px;
+      height: 32px;
+      opacity: 0.95;
+    }
 
-    .occ{margin-top:10px}
-    .occ-bar{height:12px;border-radius:10px;background:#f1f5f6;overflow:hidden}
-    .occ-fill{height:100%; border-radius:10px}
-    .occ-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--dark);
+    }
 
-    /* bottom icons */
-    .bottom-icons{display:flex;gap:16px; justify-content:center; margin-top:28px}
-    .icon-square{width:72px;height:72px;border-radius:12px;background:#0b1320;display:flex;align-items:center;justify-content:center;color:#cbd6db; box-shadow: 0 6px 18px rgba(11,19,32,0.06)}
+    .brand .subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 400;
+    }
 
-    /* responsiveness */
-    @media (max-width:860px){
-      .cards{flex-direction:column}
-      .bottom-icons{flex-wrap:wrap}
-      .icon-square{width:60px;height:60px}
+    /* Connection status */
+    .connection-status {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    .status-dot.connected { background: #10b981; }
+    .status-dot.disconnected { background: #ef4444; }
+    .status-dot.connecting { 
+      background: #f59e0b;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .status-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Main content area */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top header with clock */
+    .top-header {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 20px 30px;
+      margin-bottom: 20px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .badge {
+      background: #e9fbf4;
+      color: var(--accent-2);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .clock {
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: 1px;
+      color: var(--dark);
+      text-align: right;
+    }
+
+    .clock .amp {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-left: 5px;
+    }
+
+    /* Bus cards grid */
+    .bus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .bus-card {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #f1f5f9;
+      transition: transform 0.2s ease;
+    }
+
+    .bus-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .bus-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .bus-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--accent-2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bus-icon svg {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+
+    .bus-info h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .bus-info p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ETA circle */
+    .eta-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .eta-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      background: #eaf8f0;
+      color: var(--accent-2);
+    }
+
+    .eta-small {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* Occupancy bar */
+    .occupancy {
+      margin-top: 15px;
+    }
+
+    .occupancy-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .occupancy-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .occupancy-percentage {
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .occupancy-bar {
+      height: 12px;
+      background: #f1f5f6;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .occupancy-fill {
+      height: 100%;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #f59e0b, #f97316);
+      transition: width 0.5s ease;
+    }
+
+    /* Control buttons */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .control-btn {
+      width: 60px;
+      height: 60px;
+      background: #0b1320;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd6db;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .control-btn:hover {
+      transform: scale(1.05);
+      background: #1e293b;
+    }
+
+    .control-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--panel);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      margin: 0 0 10px;
+      color: var(--dark);
+      font-weight: 700;
+    }
+
+    .empty-state p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+        padding: 10px;
+      }
+      
+      .sidebar {
+        width: 100%;
+      }
+      
+      .bus-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .bus-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .top-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .clock {
+        text-align: center;
+      }
+      
+      .controls {
+        flex-wrap: wrap;
+      }
     }
 
   </style>
 </head>
 <body>
-  <div class="terminal">
-    <div class="header">
+  <div class="container">
+    <!-- Left Sidebar -->
+    <div class="sidebar">
       <div class="brand">
-        <div class="logo" aria-hidden>
-          <!-- small bus icon -->
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="12" rx="2" fill="white" opacity="0.12"/><path d="M3 10v3a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-3" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 10v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="20" height="12" rx="2" fill="white" opacity="0.12"/>
+            <path d="M3 10v3a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div>
-          <h1>GoFasta</h1>
-          <p>Predictive ride</p>
-        </div>
+        <h1>GoFasta</h1>
+        <p class="subtitle">Predictive ride</p>
       </div>
 
-      <div class="clock" id="clock">
-        <div class="time" id="time">12:00</div>
-        <div class="amp">Am</div>
+      <div class="connection-status">
+        <span class="status-dot connecting"></span>
+        <span class="status-text" id="statusText">Connecting...</span>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-header">
-        <h2>Available Buses</h2>
-        <div class="badge">5 Buses</div>
-      </div>
-
-      <div class="cards">
-        <!-- Card 1 -->
-        <div class="card">
-          <div class="top">
-            <div class="mini-logo">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M3 10h18v4H3z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <div class="title">RAK B88M</div>
-              <div class="sub">Remera to Nyabugogo</div>
-            </div>
-          </div>
-
-          <div class="eta">
-            <div class="eta-circle" style="background:#eaf8f0;color:var(--accent-2)">5 min</div>
-            <div>
-              <div class="eta-small">ETA</div>
-              <div style="height:18px"></div>
-            </div>
-          </div>
-
-          <div class="occ">
-            <div class="occ-row">
-              <div class="sub">Occupancy Rate</div>
-              <div class="sub">60%</div>
-            </div>
-            <div class="occ-bar">
-              <div class="occ-fill" style="width:60%; background:linear-gradient(90deg,#f59e0b,#f97316);"></div>
-            </div>
-          </div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Header -->
+      <div class="top-header">
+        <div>
+          <h2>Available Buses</h2>
         </div>
-
-        <!-- Card 2 -->
-        <div class="card">
-          <div class="top">
-            <div class="mini-logo" style="background:#f3faf9;color:var(--accent-2);">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M3 10h18v4H3z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <div class="title">RAK B88M</div>
-              <div class="sub">Remera to Nyabugogo</div>
-            </div>
-          </div>
-
-          <div class="eta">
-            <div class="eta-circle" style="background:#fff0f1;color:#ef4444">5 min</div>
-            <div>
-              <div class="eta-small">ETA</div>
-            </div>
-          </div>
-
-          <div class="occ">
-            <div class="occ-row">
-              <div class="sub">Occupancy Rate</div>
-              <div class="sub">60%</div>
-            </div>
-            <div class="occ-bar">
-              <div class="occ-fill" style="width:60%; background:linear-gradient(90deg,#10b981,#06b6d4);"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card">
-          <div class="top">
-            <div class="mini-logo" style="background:#fef6ec;color:#f59e0b">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M3 10h18v4H3z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <div class="title">RAK B88M</div>
-              <div class="sub">Remera to Nyabugogo</div>
-            </div>
-          </div>
-
-          <div class="eta">
-            <div class="eta-circle" style="background:#fff7ec;color:#f97316">5 min</div>
-            <div>
-              <div class="eta-small">ETA</div>
-            </div>
-          </div>
-
-          <div class="occ">
-            <div class="occ-row">
-              <div class="sub">Occupancy Rate</div>
-              <div class="sub">60%</div>
-            </div>
-            <div class="occ-bar">
-              <div class="occ-fill" style="width:60%; background:linear-gradient(90deg,#ef4444,#f43f5e);"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="bottom-icons">
-        <div class="icon-square">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <div class="icon-square">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-        </div>
-        <div class="icon-square">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <div class="icon-square">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <div class="icon-square">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/></svg>
+        <div class="badge" id="busCount">5 Buses</div>
+        <div class="clock">
+          <span id="time">12:00</span>
+          <span class="amp" id="ampm">Am</span>
         </div>
       </div>
 
+      <!-- Bus Cards Grid -->
+      <div class="bus-grid" id="busGrid">
+        <!-- Cards will be dynamically inserted here -->
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="control-btn" onclick="refreshData()" title="Refresh">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4 7.58 4 12C4 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="control-btn" onclick="connectSocket()" title="Reconnect">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V1L7 6L12 11V7C15.31 7 18 9.69 18 13C18 16.31 15.31 19 12 19C8.69 19 6 16.31 6 13H4C4 17.42 7.58 21 12 21C16.42 21 20 17.42 20 13C20 8.58 16.42 5 12 5Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="control-btn" onclick="showMockData()" title="Demo Data">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="control-btn" onclick="clearData()" title="Clear">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
- <script>
-// const apiBase = 'http://localhost:3000'; // backend URL
-const apiBase = 'https://go-fasta.onrender.com'; // backend URL
+  <!-- Socket.IO Client Library -->
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
-// Convert ETA seconds into readable time
-function formatEta(seconds) {
-  if (seconds == null) return '--';
-  const mins = Math.round(seconds / 60);
-  if (mins < 1) return '1 min';
-  return `${mins} min`;
-}
+  <script>
+  const SERVER_URL = 'https://server3-4gb1.onrender.com';
+  
+  let devicesData = [];
+  let socket = null;
+  let isConnected = false;
 
-// Fetch data from backend and update cards
-async function refreshDevices() {
-  try {
-    const res = await fetch(apiBase + '/api/devices');
-    const json = await res.json();
-    if (!json.success) return;
+  // Update clock
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    if (hours === 0) hours = 12;
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('time').textContent = `${hours}:${minutes}`;
+    document.getElementById('ampm').textContent = ampm;
+  }
 
-    document.querySelector('.badge').textContent = `${json.data.length} Buses`;
-    const container = document.querySelector('.cards');
-    container.innerHTML = ''; // Clear old cards
+  // Update connection status
+  function updateConnectionStatus(status) {
+    const dot = document.querySelector('.status-dot');
+    const text = document.getElementById('statusText');
+    
+    dot.className = 'status-dot ' + status;
+    
+    switch(status) {
+      case 'connected':
+        text.textContent = 'Connected';
+        isConnected = true;
+        break;
+      case 'disconnected':
+        text.textContent = 'Disconnected';
+        isConnected = false;
+        break;
+      case 'connecting':
+        text.textContent = 'Connecting...';
+        isConnected = false;
+        break;
+    }
+  }
 
-    json.data.forEach((bus, i) => {
-      const etaSec = bus.etaSeconds;
-      const occPercent = 60 + (i * 10); // fake occupancy for display
+  // Format ETA
+  function formatEta(seconds) {
+    if (seconds == null) return '--';
+    const mins = Math.round(seconds / 60);
+    if (mins < 1) return '1 min';
+    return `${mins} min`;
+  }
 
-      // Create each bus card dynamically
+  // Generate color scheme for bus cards
+  function getBusColorScheme(index) {
+    const schemes = [
+      { etaBg: '#eaf8f0', etaColor: '#10b981', barGradient: 'linear-gradient(90deg,#f59e0b,#f97316)' },
+      { etaBg: '#fff0f1', etaColor: '#ef4444', barGradient: 'linear-gradient(90deg,#10b981,#06b6d4)' },
+      { etaBg: '#fff7ec', etaColor: '#f97316', barGradient: 'linear-gradient(90deg,#ef4444,#f43f5e)' },
+      { etaBg: '#ede9fe', etaColor: '#8b5cf6', barGradient: 'linear-gradient(90deg,#8b5cf6,#a855f7)' },
+      { etaBg: '#fef3c7', etaColor: '#f59e0b', barGradient: 'linear-gradient(90deg,#eab308,#f59e0b)' }
+    ];
+    return schemes[index % schemes.length];
+  }
+
+  // Update bus cards UI
+  function updateBusCards() {
+    const grid = document.getElementById('busGrid');
+    const busCount = document.getElementById('busCount');
+    
+    busCount.textContent = `${devicesData.length} Bus${devicesData.length !== 1 ? 'es' : ''}`;
+    
+    if (devicesData.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🚌</div>
+          <h3>No Buses Available</h3>
+          <p>Waiting for bus data to load...</p>
+        </div>
+      `;
+      return;
+    }
+    
+    grid.innerHTML = '';
+    
+    devicesData.forEach((bus, index) => {
+      const busId = bus.busId || bus.device_id || bus.id || `BUS${index + 1}`;
+      const plateNumber = bus.plate_number || bus.plateNumber || busId;
+      const etaSeconds = bus.etaSeconds || bus.eta || Math.floor(Math.random() * 600) + 60; // 1-10 min
+      const occupancy = bus.occupancy || Math.floor(Math.random() * 40) + 60; // 60-100%
+      const colors = getBusColorScheme(index);
+      
       const card = document.createElement('div');
-      card.className = 'card';
+      card.className = 'bus-card';
       card.innerHTML = `
-        <div class="top">
-          <div class="mini-logo" style="background:#10b981; color:#fff;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-              <path d="M3 10h18v4H3z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <div class="bus-header">
+          <div class="bus-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="4" width="20" height="12" rx="2" fill="white" opacity="0.12"/>
+              <path d="M3 10v3a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 10v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div>
-            <div class="title">${bus.plate_number || bus.device_id}</div>
-            <div class="sub">Lat: ${bus.last_lat?.toFixed(5) || '-'}, Lon: ${bus.last_lon?.toFixed(5) || '-'}</div>
+          <div class="bus-info">
+            <h3>${plateNumber}</h3>
+            <p>Remera to Nyabugogo</p>
           </div>
         </div>
-
-        <div class="eta">
-          <div class="eta-circle" style="background:#eaf8f0; color:#10b981;">${formatEta(etaSec)}</div>
-          <div>
+        
+        <div class="eta-container">
+          <div class="eta-circle" style="background: ${colors.etaBg}; color: ${colors.etaColor};">
+            <div>${formatEta(etaSeconds)}</div>
             <div class="eta-small">ETA</div>
           </div>
         </div>
-
-        <div class="occ">
-          <div class="occ-row">
-            <div class="sub">Occupancy Rate</div>
-            <div class="sub">${occPercent}%</div>
+        
+        <div class="occupancy">
+          <div class="occupancy-header">
+            <span class="occupancy-label">Occupancy Rate</span>
+            <span class="occupancy-percentage">${occupancy}%</span>
           </div>
-          <div class="occ-bar">
-            <div class="occ-fill" style="width:${occPercent}%; background:linear-gradient(90deg,#10b981,#06b6d4);"></div>
+          <div class="occupancy-bar">
+            <div class="occupancy-fill" style="width: ${occupancy}%; background: ${colors.barGradient};"></div>
           </div>
         </div>
       `;
-      container.appendChild(card);
+      
+      grid.appendChild(card);
     });
-  } catch (err) {
-    console.error('Fetch error:', err);
   }
-}
 
-// Auto-refresh every 5 seconds
-refreshDevices();
-setInterval(refreshDevices, 5000);
+  // Handle bus data updates
+  function updateBusFromPayload(payload) {
+    if (!payload) return;
+    
+    const busId = payload.busId || payload.device_id || payload.id;
+    if (!busId) return;
+    
+    const index = devicesData.findIndex(d => 
+      d.device_id === busId || 
+      d.busId === busId ||
+      d.plate_number === busId ||
+      d.id === busId
+    );
+    
+    const updatedBus = {
+      busId: busId,
+      device_id: busId,
+      plate_number: payload.plate_number || busId,
+      etaSeconds: payload.eta || payload.etaSeconds || 300,
+      occupancy: payload.occupancy || 60
+    };
 
-// Optional: live clock
-function updateClock() {
-  const now = new Date();
-  let hours = now.getHours();
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12;
-  if (hours === 0) hours = 12;
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  document.getElementById('time').textContent = `${hours}:${minutes}`;
-  document.querySelector('.clock .amp').textContent = ampm;
-}
-updateClock();
-setInterval(updateClock, 1000);
-</script>
+    if (index !== -1) {
+      devicesData[index] = updatedBus;
+    } else {
+      devicesData.push(updatedBus);
+    }
+    
+    updateBusCards();
+  }
 
+  // Handle devices snapshot
+  function handleDevicesSnapshot(snapshot) {
+    if (snapshot?.devices) {
+      devicesData = snapshot.devices;
+      updateBusCards();
+    } else if (Array.isArray(snapshot)) {
+      devicesData = snapshot;
+      updateBusCards();
+    }
+  }
 
+  // Initialize Socket.IO connection
+  function connectSocket() {
+    updateConnectionStatus('connecting');
+    
+    if (socket) {
+      socket.disconnect();
+    }
+
+    socket = io(SERVER_URL, {
+      transports: ["websocket"],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      timeout: 20000
+    });
+
+    socket.on("connect", () => {
+      updateConnectionStatus('connected');
+      
+      // Request initial data
+      const events = ['get-devices', 'getDevices', 'subscribe'];
+      events.forEach(event => socket.emit(event));
+    });
+
+    socket.on("route-update", (payload) => {
+      updateBusFromPayload(payload);
+    });
+
+    socket.on("devices-snapshot", (snapshot) => {
+      handleDevicesSnapshot(snapshot);
+    });
+
+    socket.on("disconnect", () => {
+      updateConnectionStatus('disconnected');
+    });
+
+    socket.on("connect_error", () => {
+      updateConnectionStatus('disconnected');
+    });
+
+    // Listen to all events
+    socket.onAny((eventName, data) => {
+      console.log(`Event: ${eventName}`, data);
+      
+      if (Array.isArray(data)) {
+        devicesData = data;
+        updateBusCards();
+      } else if (data?.devices && Array.isArray(data.devices)) {
+        devicesData = data.devices;
+        updateBusCards();
+      } else if (data?.busId || data?.device_id || data?.id) {
+        updateBusFromPayload(data);
+      }
+    });
+  }
+
+  // Refresh data
+  function refreshData() {
+    if (socket && isConnected) {
+      socket.emit('get-devices');
+    } else {
+      connectSocket();
+    }
+  }
+
+  // Show mock data
+  function showMockData() {
+    devicesData = [
+      { busId: 'BUS001', plate_number: 'RAK B88M', etaSeconds: 300, occupancy: 65 },
+      { busId: 'BUS002', plate_number: 'RAK B89M', etaSeconds: 420, occupancy: 45 },
+      { busId: 'BUS003', plate_number: 'RAK B90M', etaSeconds: 180, occupancy: 85 },
+      { busId: 'BUS004', plate_number: 'RAK B91M', etaSeconds: 240, occupancy: 70 },
+      { busId: 'BUS005', plate_number: 'RAK B92M', etaSeconds: 360, occupancy: 55 }
+    ];
+    updateBusCards();
+  }
+
+  // Clear data
+  function clearData() {
+    devicesData = [];
+    updateBusCards();
+  }
+
+  // Initialize the app
+  function initialize() {
+    updateClock();
+    setInterval(updateClock, 1000);
+    
+    // Show mock data initially
+    showMockData();
+    
+    // Connect to WebSocket
+    connectSocket();
+    
+    // Auto-refresh every 30 seconds
+    setInterval(refreshData, 30000);
+  }
+
+  // Start the application
+  initialize();
+  </script>
 </body>
 </html>
